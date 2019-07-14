@@ -28,43 +28,60 @@ soundList = [sound1, sound2, sound3, sound4]
 function playSequence(sequence, sequenceCount) {
     setTimeout(function () {
         var current = sequence[sequenceCount]
-        console.log(current)
         $('#' + current).addTemporaryClass('lit', 500);
         soundList[current - 1].play();
         sequenceCount++;
         if (sequenceCount < sequence.length) {
             playSequence(sequence, sequenceCount)
         }
-        console.log(sequence);
-        console.log(sequenceCount)
     },  700)
-
+    playerSequence = [];
 }
 
 function getNext() {
     number = Math.random() * 4;
     sequence.push(Math.ceil(number));
     playSequence(sequence, sequenceCount);
+    
 }
 
-function playerGo() {
-    $('.circle').click(function () {
-        $(this).addTemporaryClass('lit', 500);
-        playerSequence.push(parseInt($(this).attr('id')));
-        console.log(playerSequence);
-    })
+
+function endGame() {
+    $('#messages').html("You lose! Your score was " + (sequence.length -1) + "!");
 }
+
+function checkForMatch(pseq) {
+    for (i=0; i<pseq.length; i++) {
+        if (pseq[i] != sequence[i]) {
+            endGame();
+        }
+        if (pseq.length === sequence.length && i === (sequence.length - 1)) {
+            getNext();
+        }
+    }
+    return true;
+}
+
 
 $(document).ready(function () {
-    $('#1');
-    $('#2');
-    $('#3');
-    $('#4');
-    
     $('#go').click(function () {
         getNext();
     })
-    playerGo();
+    $('#reset').click(function () {
+        playerSequence = [];
+        sequence = [];
+        sequenceCount = 0;
+        $('#messages').html("");
+    })
+    $('.circle').click(function () {
+        $(this).addTemporaryClass('lit', 500);
+        soundList[($(this).attr('id')) -1].pause();
+        soundList[($(this).attr('id')) -1].load();
+        soundList[($(this).attr('id')) -1].play();
+        playerSequence.push(parseInt($(this).attr('id')));
+        checkForMatch(playerSequence);
+    
+    })
 });
 
 
