@@ -7,12 +7,19 @@
 </head>
 <body>
 	<main class="container">
+		<div class="row d-flex flex-column justify-content-center align-items-center">
+			<h1>Simon Says!</h1>
+			<p>Watch the sequence and see if you can remember it all.</p>
+			<button class="btn btn-success" id="go">PLAY</button>
+			<button class="btn btn-secondary mt-2" id="reset">Start Over</button>
+			<p>Current Score: <span id="currentScore"></span></p>
+			<p>Best Score: <span id="bestScore"></span></p>
+		</div>
 		<div class="row d-flex justify-content-center">
 			<h2 id="messages"></h2>
 		</div>
 		<div class="row">
-			<button class="btn btn-success" id="go">Go!</button>
-			<button class="btn btn-outline" id="reset">Start Over</button>
+			
 		</div>
 		<div class="row">
 			<div class="col-6 col-md-3 offset-md-3 black top-left">

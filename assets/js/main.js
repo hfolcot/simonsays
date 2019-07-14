@@ -17,14 +17,17 @@
 
 })(jQuery);
 
-var playerSequence = []
-var sequence = []
+var playerSequence = [];
+var sequence = [];
 var sequenceCount = 0;
-var sound1 = new Audio('assets/sounds/1.wav')
-var sound2 = new Audio('assets/sounds/2.wav')
-var sound3 = new Audio('assets/sounds/3.wav')
-var sound4 = new Audio('assets/sounds/4.wav')
-soundList = [sound1, sound2, sound3, sound4]
+var sound1 = new Audio('assets/sounds/1.wav');
+var sound2 = new Audio('assets/sounds/2.wav');
+var sound3 = new Audio('assets/sounds/3.wav');
+var sound4 = new Audio('assets/sounds/4.wav');
+var soundList = [sound1, sound2, sound3, sound4];
+var bestScore = 0;
+var currentScore = 0;
+
 function playSequence(sequence, sequenceCount) {
     setTimeout(function () {
         var current = sequence[sequenceCount]
@@ -47,7 +50,15 @@ function getNext() {
 
 
 function endGame() {
-    $('#messages').html("You lose! Your score was " + (sequence.length -1) + "!");
+    $('#messages').html("You lose! Your score was " + (currentScore) + "!");
+    if (currentScore > bestScore) {
+        bestScore = currentScore;
+        $('#bestScore').html(bestScore);
+    }
+    playerSequence = [];
+    sequence = [];
+    sequenceCount = 0;
+    currentScore = 0;
 }
 
 function checkForMatch(pseq) {
@@ -55,8 +66,12 @@ function checkForMatch(pseq) {
         if (pseq[i] != sequence[i]) {
             endGame();
         }
-        if (pseq.length === sequence.length && i === (sequence.length - 1)) {
-            getNext();
+        if (pseq.length === sequence.length && i === (sequence.length - 1) && (pseq[i] === sequence[i])) {
+            currentScore++;
+            $('#currentScore').html(currentScore);
+            setTimeout(function() {
+                getNext(); },
+                1000)
         }
     }
     return true;
@@ -64,6 +79,8 @@ function checkForMatch(pseq) {
 
 
 $(document).ready(function () {
+    $('#bestScore').html(bestScore);
+    $('#currentScore').html(currentScore);
     $('#go').click(function () {
         $('#messages').html("");
         getNext();
@@ -72,6 +89,8 @@ $(document).ready(function () {
         playerSequence = [];
         sequence = [];
         sequenceCount = 0;
+        currentScore = 0;
+        $('#currentScore').html(currentScore);
         $('#messages').html("");
     })
     $('.circle').click(function () {
