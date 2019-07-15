@@ -20,10 +20,10 @@
 var playerSequence = [];
 var sequence = [];
 var sequenceCount = 0;
-var sound1 = new Audio('assets/sounds/1.wav');
-var sound2 = new Audio('assets/sounds/2.wav');
-var sound3 = new Audio('assets/sounds/3.wav');
-var sound4 = new Audio('assets/sounds/4.wav');
+var sound1 = new Audio('assets/sounds/1.mp3');
+var sound2 = new Audio('assets/sounds/2.mp3');
+var sound3 = new Audio('assets/sounds/3.mp3');
+var sound4 = new Audio('assets/sounds/4.mp3');
 var soundList = [sound1, sound2, sound3, sound4];
 var bestScore = 0;
 var currentScore = 0;
