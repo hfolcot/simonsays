@@ -50,4 +50,8 @@ body {
 
 .lit {
 	filter: brightness(1.75);
+	-webkit-filter: brightness(1.75);
+	-o-filter: brightness(1.75);
+	-moz-filter: brightness(1.75);
+	-ms-filter: brightness(1.75);
 }
